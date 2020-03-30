@@ -55,7 +55,7 @@ class LocalCacheCleanOldJobsTestCase(TestCase, LoaderModuleMockMixin):
         _make_tmp_jid_dirs replaces it.
         '''
         if os.path.exists(self.TMP_CACHE_DIR):
-            shutil.rmtree(self.TMP_CACHE_DIR)
+            shutil.rmtree(self.TMP_CACHE_DIR, ignore_errors=True)
 
     def test_clean_old_jobs_no_jid_root(self):
         '''
@@ -239,7 +239,7 @@ class Local_CacheTest(TestCase, AdaptedConfigurationTestCaseMixin, LoaderModuleM
                 attr_instance = getattr(cls, attrname)
                 if isinstance(attr_instance, six.string_types):
                     if os.path.isdir(attr_instance):
-                        shutil.rmtree(attr_instance)
+                        shutil.rmtree(attr_instance, ignore_errors=True)
                     elif os.path.isfile(attr_instance):
                         os.unlink(attr_instance)
                 delattr(cls, attrname)
